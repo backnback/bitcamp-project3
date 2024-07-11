@@ -2,13 +2,14 @@ package bitcamp.project3;
 
 import bitcamp.project3.command.*;
 import bitcamp.project3.util.Prompt;
+import bitcamp.project3.vo.Book;
 import bitcamp.project3.vo.User;
 
 import java.util.*;
 
 public class App {
 
-  String[] menus = {"회원", "프로젝트", "게시판", "도움말", "명령내역", "종료"};
+  String[] menus = {"대출", "조회", "관리자", "도움말", "명령내역", "종료"};
   Stack menuPath = new Stack();
 
   Map<String, Command> commandMap = new HashMap<>();
@@ -16,10 +17,10 @@ public class App {
   public App() {
     List<User> userList = new ArrayList<>();
 //    List<Project> projectList = new LinkedList<>();
-//    List<Board> boardList = new LinkedList<>();
+    List<Book> bookList = new LinkedList<>();
 
-    commandMap.put("회원", new UserCommand("회원", userList));
-//    commandMap.put("게시판", new BoardCommand("게시판", boardList));
+    commandMap.put("대출", new UserCommand("대출", userList));
+    commandMap.put("관리자", new BookManagerCommand("관리자", bookList));
 //    commandMap.put("프로젝트", new ProjectCommand("프로젝트", projectList, userList));
 //    commandMap.put("도움말", new HelpCommand());
 //    commandMap.put("명령내역", new HistoryCommand());

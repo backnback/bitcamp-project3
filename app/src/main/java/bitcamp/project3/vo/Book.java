@@ -1,5 +1,8 @@
 package bitcamp.project3.vo;
 
+import java.util.Date;
+import java.util.Objects;
+
 public class Book {
 
   public static final int Available = 0;
@@ -11,7 +14,7 @@ public class Book {
 
   private int no;
   private String title;
-  private String bookCreatedDate;
+  private Date bookRegistrationDate;
   private String author;
   private String publisher;
   private String genre;
@@ -19,6 +22,40 @@ public class Book {
   private int status;
   private String publicationYear;
 
+
+  public Book() {}
+
+  public Book(int no) {
+    this.no = no;
+  }
+
+  public Book(int no, String title, Date bookRegistrationDate, String author, String publisher,
+      String genre, int rentalPrice, int status, String publicationYear) {
+    this.no = no;
+    this.title = title;
+    this.bookRegistrationDate = bookRegistrationDate;
+    this.author = author;
+    this.publisher = publisher;
+    this.genre = genre;
+    this.rentalPrice = rentalPrice;
+    this.status = status;
+    this.publicationYear = publicationYear;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    Book book = (Book) o;
+    return no == book.no;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(no);
+  }
 
   public static int getSerialNo() {
     return ++serialNo;
@@ -40,12 +77,12 @@ public class Book {
     this.title = title;
   }
 
-  public String getBookCreatedDate() {
-    return bookCreatedDate;
+  public Date getBookRegistrationDate() {
+    return bookRegistrationDate;
   }
 
-  public void setBookCreatedDate(String bookCreatedDate) {
-    this.bookCreatedDate = bookCreatedDate;
+  public void setRegistrationDate(Date bookCreatedDate) {
+    this.bookRegistrationDate = bookCreatedDate;
   }
 
   public String getAuthor() {
