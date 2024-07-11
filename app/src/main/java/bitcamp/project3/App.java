@@ -19,7 +19,7 @@ public class App {
 //    List<Project> projectList = new LinkedList<>();
     List<Book> bookList = new LinkedList<>();
 
-    commandMap.put("대출", new UserCommand("대출", userList));
+    commandMap.put("대출", new UserCommand("대출"));
     commandMap.put("관리자", new BookManagerCommand("관리자", bookList));
 //    commandMap.put("프로젝트", new ProjectCommand("프로젝트", projectList, userList));
 //    commandMap.put("도움말", new HelpCommand());
