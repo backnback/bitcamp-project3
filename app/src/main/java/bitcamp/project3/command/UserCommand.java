@@ -5,6 +5,7 @@ import bitcamp.project3.vo.Book;
 import bitcamp.project3.vo.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class UserCommand extends AbstractCommand {
@@ -12,7 +13,7 @@ public class UserCommand extends AbstractCommand {
   private ArrayList<User> userList = new ArrayList<>();
   private ArrayList<Book> bookList = new ArrayList<>();
 
-  public UserCommand(String menuTitle) {
+  public UserCommand(String menuTitle, List<User> userList) {
     super(menuTitle);
   }
 

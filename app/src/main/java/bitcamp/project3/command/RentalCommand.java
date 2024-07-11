@@ -91,7 +91,6 @@ public class RentalCommand extends AbstractCommand {
     User user = userList.get(index);
 
     System.out.printf("이름: %s\n", user.getName());
-    System.out.printf("이메일: %s\n", user.getEmail());
     System.out.printf("연락처: %s\n", user.getTel());
   }
 
@@ -106,8 +105,6 @@ public class RentalCommand extends AbstractCommand {
     User user = userList.get(index);
 
     user.setName(Prompt.input("이름(%s)?", user.getName()));
-    user.setEmail(Prompt.input("이메일(%s)?", user.getEmail()));
-    user.setPassword(Prompt.input("암호?"));
     user.setTel(Prompt.input("연락처(%s)?", user.getTel()));
     System.out.println("변경 했습니다.");
   }
@@ -134,7 +131,5 @@ public class RentalCommand extends AbstractCommand {
     }
     return bookStatus;
   }
-
-
 }
 
