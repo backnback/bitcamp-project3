@@ -16,12 +16,11 @@ public class App {
 
   public App() {
     List<User> userList = new ArrayList<>();
-//    List<Project> projectList = new LinkedList<>();
     List<Book> bookList = new LinkedList<>();
 
-    commandMap.put("대출", new UserCommand("대출"));
-    commandMap.put("관리자", new BookManagerCommand("관리자", bookList));
-//    commandMap.put("프로젝트", new ProjectCommand("프로젝트", projectList, userList));
+    commandMap.put("사용자", new UserCommand("사용자", userList));
+    commandMap.put("책관리", new BookManagerCommand("책관리", bookList));
+    commandMap.put("대출", new RentalCommand("대출", bookList, userList));
 //    commandMap.put("도움말", new HelpCommand());
 //    commandMap.put("명령내역", new HistoryCommand());
   }
