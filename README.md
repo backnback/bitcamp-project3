@@ -1,9 +1,6 @@
-
-https://www.mermaidchart.com/app/projects/3fff1ab1-1ae2-42b6-8e02-9663e7ee8cd8/diagrams/99deb969-7b89-4dea-88e9-1a4c11372f1c/version/v0.1/edit
-
-
-
 ##  bitcamp-project3
+![Class Diagram](docs/ClassDiagram.svg)
+
 
 ## Home
 
