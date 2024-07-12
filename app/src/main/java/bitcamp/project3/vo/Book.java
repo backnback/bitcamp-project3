@@ -1,7 +1,6 @@
 package bitcamp.project3.vo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -24,7 +23,7 @@ public class Book {
   private String publicationYear;
   private int borrowDays;
   private LocalDate resistrationDate;
-  private boolean isLental;
+  private boolean isBorrowed;
 
   public Book() {}
 
@@ -37,12 +36,12 @@ public class Book {
     this.borrowDays = borrowDays;
   }
 
-  public boolean isLental() {
-    return isLental;
+  public boolean isBorrowed() {
+    return isBorrowed;
   }
 
-  public void setLental(boolean lental) {
-    isLental = lental;
+  public void setBorrowed(boolean borrowed) {
+    isBorrowed = borrowed;
   }
 
   @Override

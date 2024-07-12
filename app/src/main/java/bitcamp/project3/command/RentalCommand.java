@@ -2,23 +2,28 @@ package bitcamp.project3.command;
 
 import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
+import bitcamp.project3.vo.Record;
 import bitcamp.project3.vo.User;
 import static bitcamp.project3.vo.Book.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class RentalCommand extends AbstractCommand {
 
   private List<Book> bookList;
   private List<User> userList;
+  private List<Record> recordList;
 
 
   private String[] menus = {"신규대출", "대출목록", "대출조회", "대출반납"};
 
-  public RentalCommand(String menuTitle, List<Book> booklist, List<User> userlist) {
+  public RentalCommand(String menuTitle, List<Book> booklist, List<User> userlist, List<Record> recordList) {
     super(menuTitle);
     this.bookList = booklist;
     this.userList = userlist;
+    this.recordList = recordList;
+
   }
 
   @Override
@@ -45,6 +50,7 @@ public class RentalCommand extends AbstractCommand {
     }
   }
 
+
   private void addRental() {
     String name = Prompt.input("회원 이름?");
     for (User user : userList) {
@@ -59,7 +65,6 @@ public class RentalCommand extends AbstractCommand {
       return;
     }
     User user = userList.get(userIndex);
-
 
 
     String title = Prompt.input("책이름?");
@@ -77,23 +82,32 @@ public class RentalCommand extends AbstractCommand {
     Book book = bookList.get(bookIndex);
     if (book.getStatus() == Out) {
       System.out.println("이미 대여된 책입니다.");
+      return;
     } else if (book.getStatus() == Reserved) {
       System.out.println("예약된 책입니다.");
+      return;
     }
+
+    LocalDate currentDate = LocalDate.now();
+    int day = Prompt.inputInt("대여 몇 일?(3~7일)");
+    LocalDate endDate = currentDate.plusDays(day);
 
     book.setStatus(Out);
     System.out.printf("%s 책 대여가 완료되었습니다.\n", book.getName());
+    recordList.add(new Record(Record.getNextSeqNo(), currentDate, endDate, user, book));
   }
+
 
 
   private void listRental() {
-    System.out.println("번호\t\t책이름\t\t상태");
-    for (Book book : bookList) {
-      if (book.getStatus() == Out) {
-        System.out.printf("%d\t\t%s\t\t%s\n", book.getNo(), book.getName(), currentStatus(book));
-      }
+    System.out.println("번호\t\t대여자\t\t대여책\t\t대여일");
+    for (Record record : recordList) {
+      User user = record.getUser();
+      Book book = record.getBook();
+      System.out.printf("%d\t\t%s\t\t%s\t\t%s - %s\n", record.getNo(), user.getName(), book.getName(), record.getStartDate(), record.getEndDate());
     }
   }
+
 
 
   private void viewRental() {
@@ -109,6 +123,7 @@ public class RentalCommand extends AbstractCommand {
     System.out.printf("이름: %s\n", user.getName());
   }
 
+
   private void updateRental() {
     int userNo = Prompt.inputInt("회원번호?");
     int index = userList.indexOf(new User(userNo));
@@ -123,6 +138,7 @@ public class RentalCommand extends AbstractCommand {
     System.out.println("변경 했습니다.");
   }
 
+
   private void deleteRental() {
     int userNo = Prompt.inputInt("회원번호?");
     int index = userList.indexOf(new User(userNo));
@@ -134,6 +150,7 @@ public class RentalCommand extends AbstractCommand {
     User deletedUser = userList.remove(index);
     System.out.printf("'%s' 회원을 삭제 했습니다.\n", deletedUser.getName());
   }
+
 
 
   public String currentStatus(Book book) {
