@@ -1,5 +1,5 @@
 ##  bitcamp-project3
-![Class Diagram](docs/ClassDiagram.svg)
+![Class Diagram](docs/ClassDiagram.png)
 
 
 ## Home
