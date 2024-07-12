@@ -9,7 +9,7 @@ import java.util.*;
 
 public class App {
 
-  String[] menus = {"대출", "책관리", "사용자", "도움말", "명령내역", "종료"};
+  String[] menus = {"대출", "조회", "관리자", "도움말", "명령내역", "종료"};
   Stack menuPath = new Stack();
 
   Map<String, Command> commandMap = new HashMap<>();

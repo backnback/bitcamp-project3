@@ -11,7 +11,6 @@ public class Book {
 
   private static int serialNo;
 
-
   private int no;
   private String title;
   private Date bookRegistrationDate;
@@ -21,7 +20,7 @@ public class Book {
   private int rentalPrice;
   private int status;
   private String publicationYear;
-
+  private int borrowDays;
 
   public Book() {}
 
@@ -29,17 +28,9 @@ public class Book {
     this.no = no;
   }
 
-  public Book(int no, String title, Date bookRegistrationDate, String author, String publisher,
-      String genre, int rentalPrice, int status, String publicationYear) {
-    this.no = no;
+  public Book(String title, int borrowDays) {
     this.title = title;
-    this.bookRegistrationDate = bookRegistrationDate;
-    this.author = author;
-    this.publisher = publisher;
-    this.genre = genre;
-    this.rentalPrice = rentalPrice;
-    this.status = status;
-    this.publicationYear = publicationYear;
+    this.borrowDays = borrowDays;
   }
 
   @Override
@@ -131,5 +122,13 @@ public class Book {
 
   public void setPublicationYear(String publicationYear) {
     this.publicationYear = publicationYear;
+  }
+
+  public int getBorrowDays() {
+    return borrowDays;
+  }
+
+  public void setBorrowDays(int borrowDays) {
+    this.borrowDays = borrowDays;
   }
 }
