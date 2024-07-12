@@ -47,6 +47,19 @@ public class RentalCommand extends AbstractCommand {
 
   private void addRental() {
     String name = Prompt.input("회원 이름?");
+    for (User user : userList) {
+      if (user.getName().contains(name)) {
+        System.out.printf("%d.\t\t%s\n", user.getNo(), user.getName());
+      }
+    }
+    int userNo = Prompt.inputInt("회원 번호 입력 :");
+    int userIndex = userList.indexOf(new User(userNo));
+    if (userIndex == -1) {
+      System.out.println("없는 회원입니다.");
+      return;
+    }
+    User user = userList.get(userIndex);
+
 
 
     String title = Prompt.input("책이름?");
@@ -56,12 +69,12 @@ public class RentalCommand extends AbstractCommand {
       }
     }
     int bookNo = Prompt.inputInt("대여할 도서 번호?");
-    int index = bookList.indexOf(new Book(bookNo));
-    if (index == -1) {
+    int bookIndex = bookList.indexOf(new Book(bookNo));
+    if (bookIndex == -1) {
       System.out.println("없는 책입니다.");
       return;
     }
-    Book book = bookList.get(index);
+    Book book = bookList.get(bookIndex);
     if (book.getStatus() == Out) {
       System.out.println("이미 대여된 책입니다.");
     } else if (book.getStatus() == Reserved) {

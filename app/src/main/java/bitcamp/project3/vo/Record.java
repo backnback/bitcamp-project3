@@ -1,6 +1,7 @@
 package bitcamp.project3.vo;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Record {
   private static int seqNo;
@@ -11,6 +12,5 @@ public class Record {
 
   private User user;
   private Book book;
-
 
 }
