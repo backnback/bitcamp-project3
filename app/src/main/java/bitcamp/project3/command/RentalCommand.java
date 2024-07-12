@@ -97,14 +97,14 @@ public class RentalCommand extends AbstractCommand {
 
 
   private void viewRental() {
-    int userNo = Prompt.inputInt("회원번호?");
-    int index = userList.indexOf(new User(userNo));
-    if (index == -1) {
-      System.out.println("없는 회원입니다.");
-      return;
-    }
-
-    User user = userList.get(index);
+    String userName = Prompt.input("회원이름?");
+   boolean userExixsts = false;
+   for (User user : userList) {
+     if (User.get) {
+       System.out.println("없는 회원입니다.");
+       return;
+     }
+   }
 
     System.out.printf("이름: %s\n", user.getName());
   }
