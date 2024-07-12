@@ -12,11 +12,12 @@ import java.util.Stack;
 
 public class UserCommand extends AbstractCommand {
 
-  private ArrayList<User> userList = new ArrayList<>();
+  private List<User> userList;
   private String[] menus = {"등록", "목록", "조회", "변경", "삭제"};
 
-  public UserCommand(String menuTitle, List<User> List) {
+  public UserCommand(String menuTitle, List<User> list) {
     super(menuTitle);
+    this.userList = list;
   }
 
   @Override
