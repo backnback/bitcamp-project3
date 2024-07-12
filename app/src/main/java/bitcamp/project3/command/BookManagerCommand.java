@@ -51,7 +51,7 @@ public class BookManagerCommand extends AbstractCommand {
     book.setAuthor(Prompt.input("저자?"));
     book.setPublisher(Prompt.input("발행자?"));
     book.setResistrationDate(LocalDate.now());
-    book.setNo(User.getNextSeqNo());
+    book.setNo(Book.getNextserialNo());
     bookList.add(book);
   }
 

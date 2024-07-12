@@ -24,6 +24,7 @@ public class Book {
   private String publicationYear;
   private int borrowDays;
   private LocalDate resistrationDate;
+  private boolean isLental;
 
   public Book() {}
 
@@ -34,6 +35,14 @@ public class Book {
   public Book(String name, int borrowDays) {
     this.name = name;
     this.borrowDays = borrowDays;
+  }
+
+  public boolean isLental() {
+    return isLental;
+  }
+
+  public void setLental(boolean lental) {
+    isLental = lental;
   }
 
   @Override
@@ -51,7 +60,7 @@ public class Book {
     return Objects.hashCode(no);
   }
 
-  public static int getSerialNo() {
+  public static int getNextserialNo() {
     return ++serialNo;
   }
 
