@@ -3,6 +3,7 @@ package bitcamp.project3;
 import bitcamp.project3.command.*;
 import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
+import bitcamp.project3.vo.Record;
 import bitcamp.project3.vo.User;
 
 import java.util.*;
@@ -17,10 +18,11 @@ public class App {
   public App() {
     List<User> userList = new ArrayList<>();
     List<Book> bookList = new LinkedList<>();
+    List<Record> recordList = new LinkedList<>();
 
     commandMap.put("사용자", new UserCommand("사용자", userList));
     commandMap.put("책관리", new BookManagerCommand("책관리", bookList));
-    commandMap.put("대출", new RentalCommand("대출", bookList, userList));
+    commandMap.put("대출", new RentalCommand("대출", bookList, userList, recordList));
 //    commandMap.put("도움말", new HelpCommand());
 //    commandMap.put("명령내역", new HistoryCommand());
   }
