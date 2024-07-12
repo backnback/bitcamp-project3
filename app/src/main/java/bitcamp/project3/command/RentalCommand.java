@@ -46,6 +46,9 @@ public class RentalCommand extends AbstractCommand {
   }
 
   private void addRental() {
+    String name = Prompt.input("회원 이름?");
+
+
     String title = Prompt.input("책이름?");
     for (Book book : bookList) {
       if (book.getName().contains(title)) {
