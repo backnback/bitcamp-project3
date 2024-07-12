@@ -1,5 +1,7 @@
 package bitcamp.project3.vo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,7 +14,7 @@ public class Book {
   private static int serialNo;
 
   private int no;
-  private String title;
+  private String name;
   private Date bookRegistrationDate;
   private String author;
   private String publisher;
@@ -21,6 +23,7 @@ public class Book {
   private int status;
   private String publicationYear;
   private int borrowDays;
+  private LocalDate resistrationDate;
 
   public Book() {}
 
@@ -28,8 +31,8 @@ public class Book {
     this.no = no;
   }
 
-  public Book(String title, int borrowDays) {
-    this.title = title;
+  public Book(String name, int borrowDays) {
+    this.name = name;
     this.borrowDays = borrowDays;
   }
 
@@ -58,14 +61,6 @@ public class Book {
 
   public void setNo(int no) {
     this.no = no;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
   }
 
   public Date getBookRegistrationDate() {
@@ -130,5 +125,21 @@ public class Book {
 
   public void setBorrowDays(int borrowDays) {
     this.borrowDays = borrowDays;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public LocalDate getResistrationDate() {
+    return resistrationDate;
+  }
+
+  public void setResistrationDate(LocalDate resistrationDate) {
+    this.resistrationDate = resistrationDate;
   }
 }

@@ -1,5 +1,8 @@
 package bitcamp.project3.vo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Objects;
 
 // 메모리 설계도
@@ -9,7 +12,15 @@ public class User {
 
   private int no;
   private String name;
-  private String tel;
+  private LocalDate registrationDate;
+
+  public LocalDate getRegistrationDate() {
+    return registrationDate;
+  }
+
+  public void setRegistrationDate(LocalDate registrationDate) {
+    this.registrationDate = registrationDate;
+  }
 
   public User() {
   }
@@ -59,11 +70,4 @@ public class User {
     this.name = name;
   }
 
-  public String getTel() {
-    return tel;
-  }
-
-  public void setTel(String tel) {
-    this.tel = tel;
-  }
 }

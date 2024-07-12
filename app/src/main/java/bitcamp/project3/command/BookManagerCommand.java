@@ -4,6 +4,8 @@ import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
 import bitcamp.project3.vo.User;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookManagerCommand extends AbstractCommand {
@@ -45,15 +47,19 @@ public class BookManagerCommand extends AbstractCommand {
 
   public void addBook() {
     Book book = new Book();
-    book.setTitle(Prompt.input("책이름?"));
+    book.setName(Prompt.input("책이름?"));
+    book.setAuthor(Prompt.input("저자?"));
+    book.setPublisher(Prompt.input("발행자?"));
+    book.setResistrationDate(LocalDate.now());
     book.setNo(User.getNextSeqNo());
     bookList.add(book);
   }
 
   private void listBook() {
-    System.out.println("번호 책이름");
+    System.out.println("번호\t\t책이름\t\t저자\t\t발행자\t\t날짜");
     for (Book book : bookList) {
-      System.out.printf("%d %s\n", book.getNo(), book.getTitle());
+      System.out.printf("%d\t\t\t\t%s\t\t%s\t\t%s\t\t%s\n", book.getNo(), book.getName(), book.getAuthor(),
+          book.getPublisher(),book.getResistrationDate());
     }
   }
 
@@ -67,8 +73,9 @@ public class BookManagerCommand extends AbstractCommand {
 
     Book book = bookList.get(index);
 
-    System.out.printf("책 이름: %s\n", book.getTitle());
+    System.out.printf("책 이름: %s\n저자: %s\n발행자: %s\n", book.getName(), book.getAuthor(), book.getPublisher());
   }
+
 
 
   private void updateBook() {
@@ -81,7 +88,9 @@ public class BookManagerCommand extends AbstractCommand {
 
     Book book = bookList.get(index);
 
-    book.setTitle(Prompt.input("이름(%s)?", book.getTitle()));
+    book.setName(Prompt.input("책이름(%s)?", book.getName()));
+    book.setAuthor(Prompt.input("저자(%s)?", book.getAuthor()));
+    book.setPublisher(Prompt.input("발행자(%s)?", book.getPublisher()));
     System.out.println("변경 했습니다.");
   }
 
@@ -94,6 +103,6 @@ public class BookManagerCommand extends AbstractCommand {
     }
 
     Book deletedBook = bookList.remove(index);
-    System.out.printf("'%s' 책을 삭제 했습니다.\n", deletedBook.getTitle());
+    System.out.printf("'%s' 책을 삭제 했습니다.\n", deletedBook.getName());
   }
 }

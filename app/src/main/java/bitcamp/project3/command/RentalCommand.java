@@ -48,8 +48,8 @@ public class RentalCommand extends AbstractCommand {
   private void addRental() {
     String title = Prompt.input("책이름?");
     for (Book book : bookList) {
-      if (book.getTitle().contains(title)) {
-        System.out.printf("%d.  %s\t\t%s\n", book.getNo(), book.getTitle(), currentStatus(book));
+      if (book.getName().contains(title)) {
+        System.out.printf("%d.  %s\t\t%s\n", book.getNo(), book.getName(), currentStatus(book));
       }
     }
     int bookNo = Prompt.inputInt("대여할 도서 번호?");
@@ -66,7 +66,7 @@ public class RentalCommand extends AbstractCommand {
     }
 
     book.setStatus(Out);
-    System.out.printf("%s 책 대여가 완료되었습니다.\n", book.getTitle());
+    System.out.printf("%s 책 대여가 완료되었습니다.\n", book.getName());
   }
 
 
@@ -74,7 +74,7 @@ public class RentalCommand extends AbstractCommand {
     System.out.println("번호\t\t책이름\t\t상태");
     for (Book book : bookList) {
       if (book.getStatus() == Out) {
-        System.out.printf("%d\t\t%s\t\t%s\n", book.getNo(), book.getTitle(), currentStatus(book));
+        System.out.printf("%d\t\t%s\t\t%s\n", book.getNo(), book.getName(), currentStatus(book));
       }
     }
   }
@@ -91,7 +91,6 @@ public class RentalCommand extends AbstractCommand {
     User user = userList.get(index);
 
     System.out.printf("이름: %s\n", user.getName());
-    System.out.printf("연락처: %s\n", user.getTel());
   }
 
   private void updateRental() {
@@ -105,7 +104,6 @@ public class RentalCommand extends AbstractCommand {
     User user = userList.get(index);
 
     user.setName(Prompt.input("이름(%s)?", user.getName()));
-    user.setTel(Prompt.input("연락처(%s)?", user.getTel()));
     System.out.println("변경 했습니다.");
   }
 
