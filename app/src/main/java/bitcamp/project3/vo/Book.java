@@ -31,6 +31,10 @@ public class Book {
     this.no = no;
   }
 
+  public Book(String name) {
+    this.name = name;
+  }
+
   public Book(String name, int borrowDays) {
     this.name = name;
     this.borrowDays = borrowDays;

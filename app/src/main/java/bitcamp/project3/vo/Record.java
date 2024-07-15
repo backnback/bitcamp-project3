@@ -5,12 +5,23 @@ import java.util.Objects;
 
 public class Record {
 
+
   private static int seqNo;
 
   private boolean userExixsts;
   private int no;
   private LocalDate startDate;
   private LocalDate endDate;
+  private String complete = "";
+
+
+  public String getComplete() {
+    return complete;
+  }
+
+  public void setComplete(String complete) {
+    this.complete = complete;
+  }
 
   private User user;
   private Book book;
@@ -29,12 +40,13 @@ public class Record {
   }
 
 
-  public Record(int no, LocalDate startDate, LocalDate endDate, User user, Book book) {
+  public Record(int no, LocalDate startDate, LocalDate endDate, User user, Book book, String complete) {
     this.no = no;
     this.startDate = startDate;
     this.user = user;
     this.book = book;
     this.endDate = endDate;
+    this.complete = complete;
   }
 
   @Override
