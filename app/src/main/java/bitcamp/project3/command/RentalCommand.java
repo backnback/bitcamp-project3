@@ -241,17 +241,15 @@ public class RentalCommand extends AbstractCommand {
         }
       }
 
-      int bookNo = Prompt.inputInt("책 번호?");
-      int index = bookList.indexOf(new Book(bookNo));
+      int recordNo = Prompt.inputInt(" 번호?");
+      int index = recordList.indexOf(new Record(recordNo));
       if (index == -1) {
-        System.out.println("없는 책입니다.");
+        System.out.println("없는 번호입니다.");
         return;
       }
 
-      Book book = bookList.get(index);
-      Record record = recordList.get(index);
+      Record record = recordList.remove(index);
 
-      record = recordList.remove(index);
       if (recordList == null) {
         System.out.println("다시 선택하세요.");
         return;
