@@ -3,6 +3,7 @@ package bitcamp.project3.command;
 import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
 import bitcamp.project3.vo.Record;
+import bitcamp.project3.vo.Rental;
 import bitcamp.project3.vo.User;
 import static bitcamp.project3.vo.Book.*;
 
@@ -14,11 +15,13 @@ public class RentalCommand extends AbstractCommand {
   private List<Book> bookList;
   private List<User> userList;
   private List<Record> recordList;
+  private List<Rental> rentalList;
 
 
   private String[] menus = {"신규대출", "대출목록", "대출조회", "대출반납"};
 
-  public RentalCommand(String menuTitle, List<Book> booklist, List<User> userlist, List<Record> recordList) {
+  public RentalCommand(String menuTitle, List<Book> booklist, List<User> userlist,
+      List<Record> recordList) {
     super(menuTitle);
     this.bookList = booklist;
     this.userList = userlist;
@@ -66,7 +69,6 @@ public class RentalCommand extends AbstractCommand {
     }
     User user = userList.get(userIndex);
 
-
     String title = Prompt.input("책이름?");
     for (Book book : bookList) {
       if (book.getName().contains(title)) {
@@ -98,69 +100,84 @@ public class RentalCommand extends AbstractCommand {
   }
 
 
-
   private void listRental() {
     System.out.println("번호\t\t대여자\t\t대여책\t\t대여일");
     for (Record record : recordList) {
       User user = record.getUser();
       Book book = record.getBook();
-      System.out.printf("%d\t\t%s\t\t%s\t\t%s - %s\n", record.getNo(), user.getName(), book.getName(), record.getStartDate(), record.getEndDate());
+      System.out.printf("%d\t\t%s\t\t%s\t\t%s - %s\n", record.getNo(), user.getName(),
+          book.getName(), record.getStartDate(), record.getEndDate());
     }
   }
-
 
 
   private void viewRental() {
-    String userName = Prompt.input("회원이름?");
-   boolean userExixsts = false;
-   for (User user : userList) {
-     if (User.get) {
-       System.out.println("없는 회원입니다.");
-       return;
-     }
-   }
+    String userName = Prompt.input("회원 이름?");
+    User selectedUser = null;
 
-    System.out.printf("이름: %s\n", user.getName());
-  }
+    for (User user : userList) {
+      if (user.getName().contains(userName)) {
+        System.out.printf("%d.\t%s\n", user.getNo(), user.getName());
+      }
+    }
 
+    int userNo = Prompt.inputInt("회원 번호 입력:");
+    for (User user : userList) {
+      if (user.getNo() == userNo) {
+        selectedUser = user;
+        break;
+      }
+    }
 
-  private void updateRental() {
-    int userNo = Prompt.inputInt("회원번호?");
-    int index = userList.indexOf(new User(userNo));
-    if (index == -1) {
+    if (selectedUser == null) {
       System.out.println("없는 회원입니다.");
       return;
     }
 
-    User user = userList.get(index);
-
-    user.setName(Prompt.input("이름(%s)?", user.getName()));
-    System.out.println("변경 했습니다.");
+    System.out.println("번호\t책 이름\t대출 날짜\t\t\t반납 날짜\t\t대출 여부");
+    for (Record record : recordList) {
+      if (record.getUser().equals(selectedUser)) {
+        Book book = record.getBook();
+        System.out.printf("%d\t\t\t%s\t\t\t%s\t\t\t%s\t\t\t%s\n", book.getNo(), book.getName(), record.getStartDate(), record.getEndDate(), currentStatus(book));
+      }
+    }
   }
 
+    private void updateRental () {
+      int userNo = Prompt.inputInt("회원번호?");
+      int index = userList.indexOf(new User(userNo));
+      if (index == -1) {
+        System.out.println("없는 회원입니다.");
+        return;
+      }
 
-  private void deleteRental() {
-    int userNo = Prompt.inputInt("회원번호?");
-    int index = userList.indexOf(new User(userNo));
-    if (index == -1) {
-      System.out.println("없는 회원입니다.");
-      return;
+      User user = userList.get(index);
+
+      user.setName(Prompt.input("이름(%s)?", user.getName()));
+      System.out.println("변경 했습니다.");
     }
 
-    User deletedUser = userList.remove(index);
-    System.out.printf("'%s' 회원을 삭제 했습니다.\n", deletedUser.getName());
-  }
+    private void deleteRental () {
+      int userNo = Prompt.inputInt("회원번호?");
+      int index = userList.indexOf(new User(userNo));
+      if (index == -1) {
+        System.out.println("없는 회원입니다.");
+        return;
+      }
 
-
-
-  public String currentStatus(Book book) {
-    String bookStatus = "";
-    switch (book.getStatus()) {
-      case Available -> bookStatus = "대출가능";
-      case Out -> bookStatus = "대출중";
-      case Reserved -> bookStatus = "예약중";
+      User deletedUser = userList.remove(index);
+      System.out.printf("'%s' 회원을 삭제 했습니다.\n", deletedUser.getName());
     }
-    return bookStatus;
+
+    public String currentStatus (Book book){
+      String bookStatus = "";
+      switch (book.getStatus()) {
+        case Available -> bookStatus = "대출가능";
+        case Out -> bookStatus = "대출중";
+        case Reserved -> bookStatus = "예약중";
+      }
+      return bookStatus;
+    }
   }
-}
+
 

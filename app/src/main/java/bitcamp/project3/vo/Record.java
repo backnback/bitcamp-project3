@@ -7,6 +7,7 @@ public class Record {
 
   private static int seqNo;
 
+  private boolean userExixsts;
   private int no;
   private LocalDate startDate;
   private LocalDate endDate;
@@ -51,6 +52,13 @@ public class Record {
     return Objects.hashCode(no);
   }
 
+  public boolean isUserExixsts() {
+    return userExixsts;
+  }
+
+  public void setUserExixsts(boolean userExixsts) {
+    this.userExixsts = userExixsts;
+  }
 
   public int getNo() {
     return no;
