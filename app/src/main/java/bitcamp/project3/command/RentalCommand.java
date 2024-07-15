@@ -48,7 +48,7 @@ public class RentalCommand extends AbstractCommand {
         this.listRental();
         break;
       case "대출반납":
-        this.deleteRental();
+        this.deleteUserInformation();
         break;
     }
   }
@@ -157,18 +157,56 @@ public class RentalCommand extends AbstractCommand {
       System.out.println("변경 했습니다.");
     }
 
-    private void deleteRental () {
-      int userNo = Prompt.inputInt("회원번호?");
-      int index = userList.indexOf(new User(userNo));
-      if (index == -1) {
+    private void deleteUserInformation () {
+      String userName = Prompt.input("회원 이름?");
+      User selectedUser = null;
+
+      for (User user : userList) {
+        if (user.getName().contains(userName)) {
+          System.out.printf("%d.\t%s\n", user.getNo(), user.getName());
+        }
+      }
+
+      int userNo = Prompt.inputInt("회원 번호 입력:");
+      for (User user : userList) {
+        if (user.getNo() == userNo) {
+          selectedUser = user;
+          break;
+        }
+      }
+
+      if (selectedUser == null) {
         System.out.println("없는 회원입니다.");
         return;
       }
 
-      User deletedUser = userList.remove(index);
-      System.out.printf("'%s' 회원을 삭제 했습니다.\n", deletedUser.getName());
-    }
+      System.out.println("번호\t책 이름\t대출 날짜\t\t\t반납 날짜\t\t대출 여부");
+      for (Record record : recordList) {
+        if (record.getUser().equals(selectedUser)) {
+          Book book = record.getBook();
+          System.out.printf("%d\t\t\t%s\t\t\t%s\t\t\t%s\t\t\t%s\n", book.getNo(), book.getName(), record.getStartDate(), record.getEndDate(), currentStatus(book));
+        }
+      }
 
+      int bookNo = Prompt.inputInt("책 번호?");
+      int index = bookList.indexOf(new Book(bookNo));
+      if (index == -1) {
+        System.out.println("없는 책입니다.");
+        return;
+      }
+
+      Book book = bookList.get(index);
+      Record record = recordList.get(index);
+
+
+      record = recordList.remove(index);
+      if (recordList == null){
+        System.out.println("다시 선택하세요.");
+        return;
+      } else {
+        System.out.println("유저 정보를 삭제 했습니다.");
+      }
+    }
     public String currentStatus (Book book){
       String bookStatus = "";
       switch (book.getStatus()) {
