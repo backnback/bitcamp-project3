@@ -2,6 +2,8 @@ package bitcamp.project3.command;
 
 import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
+import bitcamp.project3.vo.Record;
+import bitcamp.project3.vo.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -54,10 +56,18 @@ public class BookManagerCommand extends AbstractCommand {
   }
 
   private void listBook() {
-    System.out.println("번호\t\t책이름\t\t저자\t\t발행자\t\t날짜");
+    String boldAnsi = "\033[1m";
+    String blueAnsi = "\033[34m";
+    String pinkAnsi = "\033[35m";
+
+    String resetAnsi = "\033[0m";
+
+    System.out.println(boldAnsi + blueAnsi + "┌────────┬──────────────┬──────────────────┬─────────────┬────────────────────────────────┐" + resetAnsi);
+    System.out.println(boldAnsi + blueAnsi + "│  번호  │    등록일    │      출판사      │    저자     │             책이름             │"+ resetAnsi);
+    System.out.println(boldAnsi + blueAnsi + "└────────┴──────────────┴──────────────────┴─────────────┴────────────────────────────────┘"+ resetAnsi);
+
     for (Book book : bookList) {
-      System.out.printf("%d\t\t\t\t%s\t\t%s\t\t%s\t\t%s\n", book.getNo(), book.getName(), book.getAuthor(),
-          book.getPublisher(),book.getRegistrationDate());
+      System.out.printf("    %-6d %-18s %-12s %-8s %s%-24s%s\n", book.getNo(), book.getRegistrationDate(), book.getPublisher(), book.getAuthor(), pinkAnsi, book.getName(), resetAnsi);
     }
   }
 

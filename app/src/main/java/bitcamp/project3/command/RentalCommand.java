@@ -14,6 +14,8 @@ import java.util.List;
 
 public class RentalCommand extends AbstractCommand {
 
+  private static RentalCommand instance;
+
   private List<Book> bookList;
   private List<User> userList;
   private List<Record> recordList;
@@ -29,21 +31,31 @@ public class RentalCommand extends AbstractCommand {
     this.userList = userlist;
     this.recordList = recordList;
 
-    booklist.add(new Book(Book.getNextserialNo(), "자바란 무엇인가", "김민수", "비트캠프", LocalDate.now(), "교육"));
-    booklist.add(new Book(Book.getNextserialNo(), "3일 동안 자바 부시기", "양지윤", "비트캠프", LocalDate.now(), "교육"));
-    booklist.add(new Book(Book.getNextserialNo(), "너도 자바할 수 있어", "이선아", "비트캠프", LocalDate.now(), "교육"));
-    booklist.add(new Book(Book.getNextserialNo(), "자바는 chat gpt", "김민수", "비트캠프", LocalDate.now(), "교육"));
+    dummyData();
+  }
 
-    booklist.add(new Book(Book.getNextserialNo(), "고양이와 사는 삶", "장혜정", "비트캠프", LocalDate.now(), "수필"));
-    booklist.add(new Book(Book.getNextserialNo(), "나의 인턴 회고록", "이선아", "비트캠프", LocalDate.now(), "수필"));
+  public static RentalCommand getInstance(String menuTitle, List<Book> booklist, List<User> userlist,
+      List<Record> recordList) {
+    if (instance == null) {
+      instance = new RentalCommand(menuTitle, booklist, userlist, recordList);
+    }
+    return instance;
+  }
 
-    booklist.add(new Book(Book.getNextserialNo(), "웃음 많은 아이", "장혜정", "부동산", LocalDate.now(), "소설"));
+  private void dummyData() {
+    bookList.add(new Book(Book.getNextserialNo(), "자바란 무엇인가", "김민수", "비트캠프", LocalDate.now(), "교육"));
+    bookList.add(new Book(Book.getNextserialNo(), "3일 동안 자바 부시기", "양지윤", "비트캠프", LocalDate.now(), "교육"));
+    bookList.add(new Book(Book.getNextserialNo(), "너도 자바할 수 있어", "이선아", "비트캠프", LocalDate.now(), "교육"));
+    bookList.add(new Book(Book.getNextserialNo(), "자바는 chat gpt", "김민수", "비트캠프", LocalDate.now(), "교육"));
+    bookList.add(new Book(Book.getNextserialNo(), "고양이와 사는 삶", "장혜정", "비트캠프", LocalDate.now(), "수필"));
+    bookList.add(new Book(Book.getNextserialNo(), "나의 인턴 회고록", "이선아", "비트캠프", LocalDate.now(), "수필"));
+    bookList.add(new Book(Book.getNextserialNo(), "웃음 많은 아이", "장혜정", "부동산왕", LocalDate.now(), "소설"));
 
     userList.add(new User(User.getNextSeqNo(), "김민수", LocalDate.now()));
     userList.add(new User(User.getNextSeqNo(), "장혜정", LocalDate.now()));
     userList.add(new User(User.getNextSeqNo(), "양지윤", LocalDate.now()));
-
   }
+
 
   @Override
   protected String[] getMenus() {
@@ -127,12 +139,29 @@ public class RentalCommand extends AbstractCommand {
     }
 
     LocalDate currentDate = LocalDate.now();
-    int day = Prompt.inputInt("대여 몇 일?(3~7일)");
-    LocalDate endDate = currentDate.plusDays(day);
+    LocalDate endDate;
+    int day = 0;
+    while (true) {
+      try {
+        day = Prompt.inputInt("대여 몇 일?(1~7일)");
+        if (day > 7) {
+          day = 7;
+          System.out.println("최대 7일 입니다.");
+        } else if (day < 1) {
+          day = 1;
+          System.out.println("최소 1일 입니다.");
+        }
+        endDate = currentDate.plusDays(day);
+        break;
+      } catch (NumberFormatException ex) {
+        System.out.println("숫자로 메뉴 번호를 입력하세요.");
+      }
+    }
 
     book.setStatus(Out);
     System.out.printf("[%s] 책 대여가 완료되었습니다.\n", book.getName());
     recordList.add(new Record(Record.getNextSeqNo(), currentDate, endDate, user, book, "대여 중"));
+
   }
 
 

@@ -22,7 +22,7 @@ public class App {
 
     commandMap.put("사용자", new UserCommand("사용자", userList));
     commandMap.put("책관리", new BookManagerCommand("책관리", bookList));
-    commandMap.put("대출", new RentalCommand("대출", bookList, userList, recordList));
+    commandMap.put("대출", RentalCommand.getInstance("대출", bookList, userList, recordList));
 //    commandMap.put("도움말", new HelpCommand());
 //    commandMap.put("명령내역", new HistoryCommand());
   }
