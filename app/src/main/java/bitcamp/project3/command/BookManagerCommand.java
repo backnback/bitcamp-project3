@@ -2,10 +2,8 @@ package bitcamp.project3.command;
 
 import bitcamp.project3.util.Prompt;
 import bitcamp.project3.vo.Book;
-import bitcamp.project3.vo.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookManagerCommand extends AbstractCommand {
@@ -50,7 +48,7 @@ public class BookManagerCommand extends AbstractCommand {
     book.setName(Prompt.input("책이름?"));
     book.setAuthor(Prompt.input("저자?"));
     book.setPublisher(Prompt.input("발행자?"));
-    book.setResistrationDate(LocalDate.now());
+    book.setRegistrationDate(LocalDate.now());
     book.setNo(Book.getNextserialNo());
     bookList.add(book);
   }
@@ -59,7 +57,7 @@ public class BookManagerCommand extends AbstractCommand {
     System.out.println("번호\t\t책이름\t\t저자\t\t발행자\t\t날짜");
     for (Book book : bookList) {
       System.out.printf("%d\t\t\t\t%s\t\t%s\t\t%s\t\t%s\n", book.getNo(), book.getName(), book.getAuthor(),
-          book.getPublisher(),book.getResistrationDate());
+          book.getPublisher(),book.getRegistrationDate());
     }
   }
 

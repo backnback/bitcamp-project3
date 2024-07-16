@@ -30,6 +30,12 @@ public class User {
     this.no = no;
   }
 
+  public User(int no, String name, LocalDate registrationDate) {
+    this.no = no;
+    this.name = name;
+    this.registrationDate = registrationDate;
+  }
+
   public User(String name) {
     this.name = name;
   }

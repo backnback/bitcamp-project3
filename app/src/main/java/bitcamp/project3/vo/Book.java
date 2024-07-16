@@ -22,7 +22,7 @@ public class Book {
   private int status;
   private String publicationYear;
   private int borrowDays;
-  private LocalDate resistrationDate;
+  private LocalDate registrationDate;
   private boolean isBorrowed;
 
   public Book() {}
@@ -33,6 +33,15 @@ public class Book {
 
   public Book(String name) {
     this.name = name;
+  }
+
+  public Book(int no, String name, String author, String publisher, LocalDate registrationDate, String genre) {
+    this.no = no;
+    this.name = name;
+    this.author = author;
+    this.publisher = publisher;
+    this.registrationDate = registrationDate;
+    this.genre = genre;
   }
 
   public Book(String name, int borrowDays) {
@@ -147,11 +156,11 @@ public class Book {
     this.name = name;
   }
 
-  public LocalDate getResistrationDate() {
-    return resistrationDate;
+  public LocalDate getRegistrationDate() {
+    return registrationDate;
   }
 
-  public void setResistrationDate(LocalDate resistrationDate) {
-    this.resistrationDate = resistrationDate;
+  public void setRegistrationDate(LocalDate registrationDate) {
+    this.registrationDate = registrationDate;
   }
 }
