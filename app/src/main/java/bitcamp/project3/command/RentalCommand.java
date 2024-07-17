@@ -22,7 +22,7 @@ public class RentalCommand extends AbstractCommand {
   private List<Rental> rentalList;
 
 
-  private String[] menus = {"신규대출", "대출목록", "대출조회", "대출반납"};
+  private String[] menus = {"신규대출", "대출목록", "대출조회"};
 
   public RentalCommand(String menuTitle, List<Book> booklist, List<User> userlist,
       List<Record> recordList) {
@@ -74,9 +74,6 @@ public class RentalCommand extends AbstractCommand {
         break;
       case "대출목록":
         this.listRental();
-        break;
-      case "대출반납":
-        this.deleteUserInformation();
         break;
     }
   }
@@ -176,7 +173,10 @@ public class RentalCommand extends AbstractCommand {
       } else if (command.equals("2")) {
         printList();
         continue;
-      } else if (command.equals("0")) { // 이전 메뉴 선택
+      }else if (command.equals("3")) {
+        deleteUserInformation();
+        continue;
+        } else if (command.equals("0")) { // 이전 메뉴 선택
         return;
       }
       System.out.println("다시 입력하세요.");
