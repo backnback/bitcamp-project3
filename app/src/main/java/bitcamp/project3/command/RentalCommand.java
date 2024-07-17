@@ -328,7 +328,7 @@ public class RentalCommand extends AbstractCommand {
     int userDataNo = Prompt.inputInt("사용자 번호를 입력하세요:");
     int index = recordList.indexOf(new Record(userDataNo));
     if (index == -1) {
-      System.out.println("사용자 번호가 없습니다.");
+      System.out.println(yellowAnsi + "사용자 번호가 없습니다." + resetAnsi);
       return;
     }
     Record deleteRecord = recordList.remove(index);
