@@ -16,11 +16,12 @@ public class RentalCommand extends AbstractCommand {
 
   private static RentalCommand instance;
 
-  private String redAnsi = "\033[31m";
-  private String boldAnsi = "\033[1m";
-  private String blueAnsi = "\033[34m";
-  private String pinkAnsi = "\033[35m";
-  private String resetAnsi = "\033[0m";
+  private static String redAnsi = "\033[31m";
+  private static String boldAnsi = "\033[1m";
+  private static String blueAnsi = "\033[34m";
+  private static String pinkAnsi = "\033[35m";
+  private static String yellowAnsi = "\033[33m";
+  private static String resetAnsi = "\033[0m";
 
   private List<Book> bookList;
   private List<User> userList;
@@ -114,7 +115,7 @@ public class RentalCommand extends AbstractCommand {
     int userNo = Prompt.inputInt("회원 번호 입력 :");
     int userIndex = userList.indexOf(new User(userNo));
     if (userIndex == -1) {
-      System.out.println("없는 회원입니다.");
+      System.out.println(yellowAnsi + "없는 회원입니다." + resetAnsi);
       return;
     }
     User user = userList.get(userIndex);
@@ -124,7 +125,7 @@ public class RentalCommand extends AbstractCommand {
     System.out.println("┌───────────────────────────────────────┐");
     for (Book book : bookList) {
       if (book.getName().contains(title)) {
-        System.out.printf("  %d.  %s  :  %s%s%s\n", book.getNo(), book.getName(), redAnsi, currentStatus(book), resetAnsi);
+        System.out.printf("  %d.  %s  :  %s%s%s\n", book.getNo(), book.getName(), pinkAnsi, currentStatus(book), resetAnsi);
         tempBookList.add(book);
       }
     }
@@ -134,21 +135,22 @@ public class RentalCommand extends AbstractCommand {
       System.out.println("└───────────────────────────────────────┘");
       return;
     }
+    System.out.println("└───────────────────────────────────────┘");
 
     Book book;
     while (true) {
       int bookNo = Prompt.inputInt("대여할 도서 번호?");
       int bookIndex = bookList.indexOf(new Book(bookNo));
       if (bookIndex == -1) {
-        System.out.println("없는 책입니다.");
+        System.out.println(yellowAnsi + "없는 책입니다." + resetAnsi);
         continue;
       }
       book = bookList.get(bookIndex);
       if (book.getStatus() == Out) {
-        System.out.println("이미 대여된 책입니다.");
+        System.out.println(yellowAnsi + "이미 대여된 책입니다." + resetAnsi);
         continue;
       } else if (book.getStatus() == Reserved) {
-        System.out.println("예약된 책입니다.");
+        System.out.println(yellowAnsi + "예약된 책입니다." + resetAnsi);
         continue;
       }
       break;
@@ -162,20 +164,20 @@ public class RentalCommand extends AbstractCommand {
         day = Prompt.inputInt("대여 몇 일?(1~7일)");
         if (day > 7) {
           day = 7;
-          System.out.println("최대 7일 입니다.");
+          System.out.println(yellowAnsi + "최대 7일 입니다." + resetAnsi);
         } else if (day < 1) {
           day = 1;
-          System.out.println("최소 1일 입니다.");
+          System.out.println(yellowAnsi + "최소 1일 입니다." + resetAnsi);
         }
         endDate = currentDate.plusDays(day);
         break;
       } catch (NumberFormatException ex) {
-        System.out.println("숫자로 메뉴 번호를 입력하세요.");
+        System.out.println(yellowAnsi + "숫자로 메뉴 번호를 입력하세요." + resetAnsi);
       }
     }
 
     book.setStatus(Out);
-    System.out.printf("[%s] 책 대여가 완료되었습니다.\n", book.getName());
+    System.out.printf("%s[%s] 책 대여가 완료되었습니다.%s\n", pinkAnsi, book.getName(), resetAnsi);
     recordList.add(new Record(Record.getNextSeqNo(), currentDate, endDate, user, book, "대여 중"));
 
   }
@@ -198,7 +200,7 @@ public class RentalCommand extends AbstractCommand {
       } else if (command.equals("0")) { // 이전 메뉴 선택
         return;
       }
-      System.out.println("다시 입력하세요.");
+      System.out.println(yellowAnsi + "다시 입력하세요." + resetAnsi);
     }
   }
 
@@ -282,13 +284,13 @@ public class RentalCommand extends AbstractCommand {
     int recordNo = Prompt.inputInt("기록 번호?");
     int recordIndex = recordList.indexOf(new Record(recordNo));
     if (recordIndex == -1) {
-      System.out.println("없는 기록입니다.");
+      System.out.println(yellowAnsi + "없는 기록입니다." + resetAnsi);
       return;
     }
 
     Record completedRecord = recordList.get(recordIndex);
     if (completedRecord.getComplete().equals("반납완료")) {
-      System.out.printf("%d번 기록은 이미 반납 완료 처리되었습니다.\n", completedRecord.getNo());
+      System.out.printf("%s%d번 기록은 이미 반납 완료 처리되었습니다.%s\n", yellowAnsi, completedRecord.getNo(), resetAnsi);
       System.out.println("\n\n");
       return;
     }
@@ -299,8 +301,8 @@ public class RentalCommand extends AbstractCommand {
       }
     }
     recordList.get(recordIndex).setComplete("반납완료");
-    System.out.printf("'%s'님의 [%s] 도서 반납을 완료했습니다.\n", completedRecord.getUser().getName(),
-        completedRecord.getBook().getName());
+    System.out.printf("%s'%s'님의 [%s] 도서 반납을 완료했습니다.%s\n", blueAnsi, completedRecord.getUser().getName(),
+        completedRecord.getBook().getName(), resetAnsi);
     System.out.println("\n\n");
   }
 
@@ -330,7 +332,7 @@ public class RentalCommand extends AbstractCommand {
       return;
     }
     Record deleteRecord = recordList.remove(index);
-    System.out.printf("'%s' 사용자 정보를 삭제 했습니다.\n", deleteRecord.getNo());
+    System.out.printf("%s'%s' 사용자 정보를 삭제 했습니다.%s\n", blueAnsi, deleteRecord.getNo(), resetAnsi);
   }
 
     public String currentStatus (Book book){
