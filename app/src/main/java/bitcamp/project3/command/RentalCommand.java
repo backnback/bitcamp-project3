@@ -218,6 +218,12 @@ public class RentalCommand extends AbstractCommand {
 
 
   private void viewRental() {
+    String boldAnsi = "\033[1m";
+    String blueAnsi = "\033[34m";
+    String pinkAnsi = "\033[35m";
+
+    String resetAnsi = "\033[0m";
+
     String userName = Prompt.input("회원 이름?");
     User selectedUser = null;
 
@@ -239,13 +245,21 @@ public class RentalCommand extends AbstractCommand {
       System.out.println("없는 회원입니다.");
       return;
     }
+    System.out.println(boldAnsi + pinkAnsi
+        + "┌──────┬──────────┬─────────────────────────┬──────────────┬────────────────────────────┐"
+        + resetAnsi);
+    System.out.println(boldAnsi + pinkAnsi
+        + "│ 번호 │  대여자  │   대출일자 ~ 반납기일   │   완료여부   │           대여책           │" + resetAnsi);
+    System.out.println(boldAnsi + pinkAnsi
+        + "└──────┴──────────┴─────────────────────────┴──────────────┴────────────────────────────┘"
+        + resetAnsi);
 
-    System.out.println("번호\t책 이름\t대출 날짜\t\t\t반납 날짜\t\t대출 여부");
     for (Record record : recordList) {
       if (record.getUser().equals(selectedUser)) {
+        User user = record.getUser();
         Book book = record.getBook();
-        System.out.printf("%d\t\t\t%s\t\t\t%s\t\t\t%s\t\t\t%s\n", book.getNo(), book.getName(),
-            record.getStartDate(), record.getEndDate(), currentStatus(book));
+        System.out.printf("    %-5d %-6s %-10s - %-14s %-8s %-22s \n", book.getNo(), user.getName(),
+            record.getStartDate(), record.getEndDate(), record.getComplete(),book.getName());
       }
     }
   }
@@ -316,7 +330,7 @@ public class RentalCommand extends AbstractCommand {
     }
     System.out.println("\n\n");
 
-    int userDataNo = Prompt.inputInt("사용자 번호 입력:");
+    int userDataNo = Prompt.inputInt("사용자 번호를 입력하세요:");
     int index = recordList.indexOf(new Record(userDataNo));
     if (index == -1) {
       System.out.println("사용자 번호가 없습니다.");
