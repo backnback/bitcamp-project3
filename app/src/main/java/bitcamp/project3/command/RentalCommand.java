@@ -17,6 +17,9 @@ public class RentalCommand extends AbstractCommand {
   private static RentalCommand instance;
 
   private String redAnsi = "\033[31m";
+  private String boldAnsi = "\033[1m";
+  private String blueAnsi = "\033[34m";
+  private String pinkAnsi = "\033[35m";
   private String resetAnsi = "\033[0m";
 
   private List<Book> bookList;
@@ -200,12 +203,6 @@ public class RentalCommand extends AbstractCommand {
   }
 
   private void printList() {
-    String boldAnsi = "\033[1m";
-    String blueAnsi = "\033[34m";
-    String pinkAnsi = "\033[35m";
-
-    String resetAnsi = "\033[0m";
-
     System.out.println(boldAnsi + pinkAnsi
         + "┌──────┬──────────┬─────────────────────────┬──────────────┬────────────────────────────┐"
         + resetAnsi);
@@ -226,12 +223,6 @@ public class RentalCommand extends AbstractCommand {
 
 
   private void viewRental() {
-    String boldAnsi = "\033[1m";
-    String blueAnsi = "\033[34m";
-    String pinkAnsi = "\033[35m";
-
-    String resetAnsi = "\033[0m";
-
     String userName = Prompt.input("회원 이름?");
     User selectedUser = null;
 
@@ -315,12 +306,6 @@ public class RentalCommand extends AbstractCommand {
 
 
   private void deleteUserInformation() {
-    String boldAnsi = "\033[1m";
-    String blueAnsi = "\033[34m";
-    String pinkAnsi = "\033[35m";
-
-    String resetAnsi = "\033[0m";
-
     System.out.println(boldAnsi + pinkAnsi
         + "┌──────┬──────────┬─────────────────────────┬──────────────┬────────────────────────────┐"
         + resetAnsi);
