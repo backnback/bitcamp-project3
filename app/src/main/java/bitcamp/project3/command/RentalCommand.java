@@ -257,7 +257,7 @@ public class RentalCommand extends AbstractCommand {
       if (record.getUser().equals(selectedUser)) {
         User user = record.getUser();
         Book book = record.getBook();
-        System.out.printf("    %-5d %-6s %-10s - %-14s %-8s %-22s \n", book.getNo(), user.getName(),
+        System.out.printf("    %-5d %-6s %-10s - %-14s %-8s %-22s \n", record.getNo(), user.getName(),
             record.getStartDate(), record.getEndDate(), record.getComplete(),book.getName());
       }
     }
