@@ -16,6 +16,9 @@ public class RentalCommand extends AbstractCommand {
 
   private static RentalCommand instance;
 
+  private String redAnsi = "\033[31m";
+  private String resetAnsi = "\033[0m";
+
   private List<Book> bookList;
   private List<User> userList;
   private List<Record> recordList;
@@ -88,19 +91,22 @@ public class RentalCommand extends AbstractCommand {
 
 
   private void addRental() {
-    String name = Prompt.input("회원 이름?");
+    String name = Prompt.input("회원 이름? (전체 : enter)");
     List<User> tempUserList = new ArrayList<>();
+    System.out.println("┌─────────────────────┐");
     for (User user : userList) {
       if (user.getName().contains(name)) {
-        System.out.printf("%d.\t\t%s\n", user.getNo(), user.getName());
+        System.out.printf("│%d.  %-14s│\n", user.getNo(), user.getName());
         tempUserList.add(user);
       }
     }
 
     if (tempUserList.isEmpty()) {
-      System.out.println(">>>>>>>>  Empty  <<<<<<<<");
+      System.out.println("│>>>>>>  Empty  <<<<<<│");
+      System.out.println("└─────────────────────┘");
       return;
     }
+    System.out.println("└─────────────────────┘");
 
     int userNo = Prompt.inputInt("회원 번호 입력 :");
     int userIndex = userList.indexOf(new User(userNo));
@@ -110,17 +116,19 @@ public class RentalCommand extends AbstractCommand {
     }
     User user = userList.get(userIndex);
 
-    String title = Prompt.input("책이름?");
+    String title = Prompt.input("책이름? (전체 : enter)");
     List<Book> tempBookList = new LinkedList<>();
+    System.out.println("┌───────────────────────────────────────┐");
     for (Book book : bookList) {
       if (book.getName().contains(title)) {
-        System.out.printf("%d.  %s\t\t%s\n", book.getNo(), book.getName(), currentStatus(book));
+        System.out.printf("  %d.  %s  :  %s%s%s\n", book.getNo(), book.getName(), redAnsi, currentStatus(book), resetAnsi);
         tempBookList.add(book);
       }
     }
 
     if (tempBookList.isEmpty()) {
-      System.out.println(">>>>>>>>  Empty  <<<<<<<<");
+      System.out.println("│>>>>>>>>>>>      Empty      <<<<<<<<<<<│");
+      System.out.println("└───────────────────────────────────────┘");
       return;
     }
 
