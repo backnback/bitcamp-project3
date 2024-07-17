@@ -332,8 +332,11 @@ public class RentalCommand extends AbstractCommand {
       return;
     }
     Record deleteRecord = recordList.remove(index);
-    System.out.printf("%s'%s' 사용자 정보를 삭제 했습니다.%s\n", blueAnsi, deleteRecord.getNo(), resetAnsi);
-  }
+    Record record = new Record();
+      System.out.printf("%s'%s' 사용자 정보를 삭제 했습니다.%s\n", blueAnsi, deleteRecord.getUser().getName(), resetAnsi);
+    }
+
+
 
     public String currentStatus (Book book){
       String bookStatus = "";
