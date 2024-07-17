@@ -34,7 +34,8 @@ public class RentalCommand extends AbstractCommand {
     dummyData();
   }
 
-  public static RentalCommand getInstance(String menuTitle, List<Book> booklist, List<User> userlist,
+  public static RentalCommand getInstance(String menuTitle, List<Book> booklist,
+      List<User> userlist,
       List<Record> recordList) {
     if (instance == null) {
       instance = new RentalCommand(menuTitle, booklist, userlist, recordList);
@@ -43,13 +44,20 @@ public class RentalCommand extends AbstractCommand {
   }
 
   private void dummyData() {
-    bookList.add(new Book(Book.getNextserialNo(), "자바란 무엇인가", "김민수", "비트캠프", LocalDate.now(), "교육"));
-    bookList.add(new Book(Book.getNextserialNo(), "3일 동안 자바 부시기", "양지윤", "비트캠프", LocalDate.now(), "교육"));
-    bookList.add(new Book(Book.getNextserialNo(), "너도 자바할 수 있어", "이선아", "비트캠프", LocalDate.now(), "교육"));
-    bookList.add(new Book(Book.getNextserialNo(), "자바는 chat gpt", "김민수", "비트캠프", LocalDate.now(), "교육"));
-    bookList.add(new Book(Book.getNextserialNo(), "고양이와 사는 삶", "장혜정", "비트캠프", LocalDate.now(), "수필"));
-    bookList.add(new Book(Book.getNextserialNo(), "나의 인턴 회고록", "이선아", "비트캠프", LocalDate.now(), "수필"));
-    bookList.add(new Book(Book.getNextserialNo(), "웃음 많은 아이", "장혜정", "부동산왕", LocalDate.now(), "소설"));
+    bookList.add(
+        new Book(Book.getNextserialNo(), "자바란 무엇인가", "김민수", "비트캠프", LocalDate.now(), "교육"));
+    bookList.add(
+        new Book(Book.getNextserialNo(), "3일 동안 자바 부시기", "양지윤", "비트캠프", LocalDate.now(), "교육"));
+    bookList.add(
+        new Book(Book.getNextserialNo(), "너도 자바할 수 있어", "이선아", "비트캠프", LocalDate.now(), "교육"));
+    bookList.add(
+        new Book(Book.getNextserialNo(), "자바는 chat gpt", "김민수", "비트캠프", LocalDate.now(), "교육"));
+    bookList.add(
+        new Book(Book.getNextserialNo(), "고양이와 사는 삶", "장혜정", "비트캠프", LocalDate.now(), "수필"));
+    bookList.add(
+        new Book(Book.getNextserialNo(), "나의 인턴 회고록", "이선아", "비트캠프", LocalDate.now(), "수필"));
+    bookList.add(
+        new Book(Book.getNextserialNo(), "웃음 많은 아이", "장혜정", "부동산왕", LocalDate.now(), "소설"));
 
     userList.add(new User(User.getNextSeqNo(), "김민수", LocalDate.now()));
     userList.add(new User(User.getNextSeqNo(), "장혜정", LocalDate.now()));
@@ -173,10 +181,10 @@ public class RentalCommand extends AbstractCommand {
       } else if (command.equals("2")) {
         printList();
         continue;
-      }else if (command.equals("3")) {
+      } else if (command.equals("3")) {
         deleteUserInformation();
         continue;
-        } else if (command.equals("0")) { // 이전 메뉴 선택
+      } else if (command.equals("0")) { // 이전 메뉴 선택
         return;
       }
       System.out.println("다시 입력하세요.");
@@ -190,14 +198,20 @@ public class RentalCommand extends AbstractCommand {
 
     String resetAnsi = "\033[0m";
 
-    System.out.println(boldAnsi + pinkAnsi + "┌──────┬──────────┬─────────────────────────┬──────────────┬────────────────────────────┐" + resetAnsi);
-    System.out.println(boldAnsi + pinkAnsi + "│ 번호 │  대여자  │   대출일자 ~ 반납기일   │   완료여부   │           대여책           │"+ resetAnsi);
-    System.out.println(boldAnsi + pinkAnsi + "└──────┴──────────┴─────────────────────────┴──────────────┴────────────────────────────┘"+ resetAnsi);
+    System.out.println(boldAnsi + pinkAnsi
+        + "┌──────┬──────────┬─────────────────────────┬──────────────┬────────────────────────────┐"
+        + resetAnsi);
+    System.out.println(boldAnsi + pinkAnsi
+        + "│ 번호 │  대여자  │   대출일자 ~ 반납기일   │   완료여부   │           대여책           │" + resetAnsi);
+    System.out.println(boldAnsi + pinkAnsi
+        + "└──────┴──────────┴─────────────────────────┴──────────────┴────────────────────────────┘"
+        + resetAnsi);
 
     for (Record record : recordList) {
       User user = record.getUser();
       Book book = record.getBook();
-      System.out.printf("    %-5d %-6s %-10s - %-14s %-8s %-22s \n", record.getNo(), user.getName(), record.getStartDate(), record.getEndDate(), record.getComplete(), book.getName());
+      System.out.printf("    %-5d %-6s %-10s - %-14s %-8s %-22s \n", record.getNo(), user.getName(),
+          record.getStartDate(), record.getEndDate(), record.getComplete(), book.getName());
     }
     System.out.println("\n\n");
   }
@@ -278,56 +292,39 @@ public class RentalCommand extends AbstractCommand {
   }
 
 
+  private void deleteUserInformation() {
+    String boldAnsi = "\033[1m";
+    String blueAnsi = "\033[34m";
+    String pinkAnsi = "\033[35m";
 
-    private void deleteUserInformation () {
-      String userName = Prompt.input("회원 이름?");
-      User selectedUser = null;
+    String resetAnsi = "\033[0m";
 
-      for (User user : userList) {
-        if (user.getName().contains(userName)) {
-          System.out.printf("%d.\t%s\n", user.getNo(), user.getName());
-        }
-      }
+    System.out.println(boldAnsi + pinkAnsi
+        + "┌──────┬──────────┬─────────────────────────┬──────────────┬────────────────────────────┐"
+        + resetAnsi);
+    System.out.println(boldAnsi + pinkAnsi
+        + "│ 번호 │  대여자  │   대출일자 ~ 반납기일   │   완료여부   │           대여책           │" + resetAnsi);
+    System.out.println(boldAnsi + pinkAnsi
+        + "└──────┴──────────┴─────────────────────────┴──────────────┴────────────────────────────┘"
+        + resetAnsi);
 
-      int userNo = Prompt.inputInt("회원 번호 입력:");
-      for (User user : userList) {
-        if (user.getNo() == userNo) {
-          selectedUser = user;
-          break;
-        }
-      }
-
-      if (selectedUser == null) {
-        System.out.println("없는 회원입니다.");
-        return;
-      }
-
-      System.out.println("번호\t책 이름\t대출 날짜\t\t\t반납 날짜\t\t대출 여부");
-      for (Record record : recordList) {
-        if (record.getUser().equals(selectedUser)) {
-          Book book = record.getBook();
-          System.out.printf("%d\t\t\t%s\t\t\t%s\t\t\t%s\t\t\t%s\n", book.getNo(), book.getName(),
-              record.getStartDate(), record.getEndDate(), currentStatus(book));
-        }
-
-      }
-
-      int recordNo = Prompt.inputInt(" 번호?");
-      int index = recordList.indexOf(new Record(recordNo));
-      if (index == -1) {
-        System.out.println("없는 번호입니다.");
-        return;
-      }
-
-      Record record = recordList.remove(index);
-
-      if (recordList == null) {
-        System.out.println("다시 선택하세요.");
-        return;
-      } else {
-        System.out.println("유저 정보를 삭제 했습니다.");
-      }
+    for (Record record : recordList) {
+      User user = record.getUser();
+      Book book = record.getBook();
+      System.out.printf("    %-5d %-6s %-10s - %-14s %-8s %-22s \n", record.getNo(), user.getName(),
+          record.getStartDate(), record.getEndDate(), record.getComplete(), book.getName());
     }
+    System.out.println("\n\n");
+
+    int userDataNo = Prompt.inputInt("사용자 번호 입력:");
+    int index = recordList.indexOf(new Record(userDataNo));
+    if (index == -1) {
+      System.out.println("사용자 번호가 없습니다.");
+      return;
+    }
+    Record deleteRecord = recordList.remove(index);
+    System.out.printf("'%s' 사용자 정보를 삭제 했습니다.\n", deleteRecord.getNo());
+  }
 
     public String currentStatus (Book book){
       String bookStatus = "";
